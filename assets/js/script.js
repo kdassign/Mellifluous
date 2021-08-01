@@ -14,9 +14,10 @@ function getApi(requestUrl) {
     .then(function(data) {
         
         for (let i=0; i<10; i++) {
+            j = i+1
             console.log(data.response.hits[i].result.full_title)
             var searchResult = data.response.hits[i].result.full_title
-            var searchData = `<div style="border: solid 1px;">${searchResult}</div>`
+            var searchData = `<div style="border: solid 1px;">${j} ${searchResult}</div>`
             $('.new-container').append(searchData)
         }
         
@@ -31,6 +32,7 @@ $('#submit').click(function () {
     $('.new-container').empty();
     
     var artistName = $('.input').val();
+    $('.new-container').append(`Top Songs for ${artistName}`)
     var requestUrl = `https://genius.p.rapidapi.com/search?q=${artistName}`;
     // console.log(getApi(requestUrl));
     // console.log(search);

@@ -32,7 +32,7 @@ $('#submit').click(function () {
     $('.new-container').empty();
     
     var artistName = $('.input').val();
-    $('.new-container').append(`Top Songs for ${artistName}`)
+    $('.new-container').append(`Top Searched for Songs for ${artistName}`)
     var requestUrl = `https://genius.p.rapidapi.com/search?q=${artistName}`;
     // console.log(getApi(requestUrl));
     // console.log(search);

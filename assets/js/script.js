@@ -4,8 +4,8 @@ function getApi(requestUrl) {
     fetch(requestUrl, {
         "method": "GET",
         "headers": {
-            "x-rapidapi-key": "2e0b012657msh1714dee1b5287f7p134ef9jsn4822f3ef62df",
-            "x-rapidapi-host": "genius.p.rapidapi.com"
+            'x-rapidapi-key': '8fddfbc6c0msh50cc1e17cb773bap17c7c1jsnad98cd7d5e6b',
+            'x-rapidapi-host': 'genius.p.rapidapi.com'
         }
     })
     .then(response => {

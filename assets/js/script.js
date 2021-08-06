@@ -6,6 +6,7 @@
 
 
 var searchFormEl = document.querySelector('#search-form');
+// var submitButton = document.querySelector('#submit');
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -24,3 +25,4 @@ function handleSearchFormSubmit(event) {
 }
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+// submitButton.addEventListener('click', handleSearchFormSubmit);

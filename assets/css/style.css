@@ -11,4 +11,12 @@ body {
     font-family: 'Merriweather', serif;
     font-weight: 700;
   }
-  
+
+.column {
+  padding: 1rem;
+  margin: 1em;
+}
+
+#title {
+  text-align: center;
+}

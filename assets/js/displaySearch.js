@@ -61,7 +61,10 @@ function searchApi(query, format) {
             return response.json();
         })
         .then(function (data) {
-            // write query to page so user knows what they are viewing
+            // Write the most likely result for the song or artist that 
+            // the user is trying to search for. If a song is being searched for,
+            // the artist name appears here. If an artist is begin searched for,
+            // then the artist name will appear here.
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
 
             if (!data.response.hits.length) {

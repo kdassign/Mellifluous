@@ -14,7 +14,12 @@ function getParams() {
     searchApi(query, format);
 }
 
-function printResults(resultObj) {
+function searchGifApi() {
+    var apiKey = 'ICl9v7ZZJJN5ViF4ldRueAOfM2Q8vABA';
+    
+}
+
+function printResults(resultObj, giphyObj) {
     
 
     // set up `<div>` to hold result content
@@ -32,12 +37,16 @@ function printResults(resultObj) {
     bodyContentEl.innerHTML =
         '<strong>URL:</strong> ' + resultObj.url + '<br/>';
 
+    var gifEl = document.createElement('div');
+    gifEl.setAttribute('style', 'text-align: center; margin: 20px; border: solid 2px; border-radius: 10px;')
+    gifEl.innerHTML = 'The song gif goes here';
+
     var linkButtonEl = document.createElement('a');
     linkButtonEl.textContent = 'Visit URL';
     linkButtonEl.setAttribute('href', resultObj.url);
     linkButtonEl.classList.add('btn', 'btn-dark');
 
-    resultBody.append(titleEl, bodyContentEl, linkButtonEl);
+    resultBody.append(titleEl, bodyContentEl, gifEl, linkButtonEl);
 
     resultContentEl.append(resultCard);
 }
@@ -96,6 +105,10 @@ function handleSearchFormSubmit(event) {
     searchApi(searchInputVal, formatInputVal);
 }
 
+
+
+
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 getParams();
+

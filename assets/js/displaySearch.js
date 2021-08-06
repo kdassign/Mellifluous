@@ -24,10 +24,10 @@ function printResults(resultObj, giphyObj) {
 
     // set up `<div>` to hold result content
     var resultCard = document.createElement('div');
-    resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+    resultCard.classList.add('box');
 
     var resultBody = document.createElement('div');
-    resultBody.classList.add('card-body');
+    resultBody.classList.add('content');
     resultCard.append(resultBody);
 
     var titleEl = document.createElement('h3');

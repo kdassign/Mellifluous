@@ -6,31 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/jass.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <title>Results</title>
 </head>
 <body>
-    <div class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-primary">
-        <div class="col-12 col-md-3 bg-light p-3">
-          <h1 class="text-primary">Mellifluous Search</h1>
-          <form id="search-form" class="mb-2">
-            <input id="search-input" class="form-input w-100" type="text" placeholder="Search!">
-            <select id="format-input" class="form-input w-100">
-              <option value="" disabled selected>Select a format...</option>
-              <option value="maps">Language 1</option>
-              <option value="audio">Language 2</option>
- 
-            </select>
-            <button class="btn btn-info btn-block">Search</button>
-          </form>
-    
-          <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back.</a>
+    <div class="columns">
+      
+      <div class="column is-4">
+        <div class="content is-large">
+          <h1>Mellifluous Search</h1>
         </div>
-    
-        <div class="col-12 col-md-9 p-3 text-light">
-          <h2>Showing results for <span id="result-text"></span></h2>
-          <div id="result-content"></div>
-        </div>
+
+        <form id="search-form" class="form">
+
+          <div class="block">
+            <input id="search-input" class="input is-large" type="text" placeholder="Search!">
+          </div>
+          
+          <div id="format-input"></div>
+  
+          <div class="buttons">
+            <button class="button is-success is-fullwidth">Search</button>
+            <a href="./index.html" class="button is-danger is-fullwidth">&larr; Go back.</a>
+          </div>
+  
+        </form>
+
       </div>
+  
+      <div class="column is-8">
+        <div class="content">
+          <h2>Showing results for <span id="result-text"></span></h2>
+        </div>
+        <div id="result-content"></div>
+      </div>
+
+    </div>
 
 
 

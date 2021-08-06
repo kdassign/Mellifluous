@@ -5,16 +5,17 @@ var searchFormEl = document.querySelector('#search-form');
 function getParams() {
     // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
     var searchParamsArr = document.location.search.split('&');
-
+    console.log(searchParamsArr)
     // Get the query and format values
     var query = searchParamsArr[0].split('=').pop();
+    console.log(query)
+    
     var format = searchParamsArr[1].split('=').pop();
-
     searchApi(query, format);
 }
 
 function printResults(resultObj) {
-    console.log(resultObj);
+    
 
     // set up `<div>` to hold result content
     var resultCard = document.createElement('div');
@@ -46,7 +47,7 @@ function printResults(resultObj) {
 function searchApi(query, format) {
 
     var locQueryUrl = `https://genius.p.rapidapi.com/search?q=${query}`;
-    console.log(format);
+   
 
 
     fetch(locQueryUrl, {
@@ -61,9 +62,7 @@ function searchApi(query, format) {
         })
         .then(function (data) {
             // write query to page so user knows what they are viewing
-            resultTextEl.textContent = query//data.response.hits[0].result.full_title
-
-            console.log(data.response);
+            resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
 
             if (!data.response.hits.length) {
                 console.log('No results found!');

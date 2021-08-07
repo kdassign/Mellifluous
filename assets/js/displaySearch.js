@@ -17,11 +17,7 @@ function getParams() {
     
 }
 
-function saveSearch(query) {
-    
-    localStorage.setItem('pastSearches', pastSearches);
-    console.log(pastSearches)
-}
+
 
 function searchGifApi(searchItem, num) {
     var apiKey = 'ICl9v7ZZJJN5ViF4ldRueAOfM2Q8vABA';
@@ -82,7 +78,14 @@ function printResults(resultObj, gifObj) {
     resultContentEl.append(resultCard);
 }
 
-
+function saveSearch(query) {
+    var pastSearchParentEl = document.getElementById('past-search-buttons');
+    var pastSearchEl = document.createElement('div');
+    pastSearchEl.textContent = query;
+    pastSearches.push(query)
+    localStorage.setItem('pastSearches', pastSearches);
+    pastSearchParentEl.append(pastSearchEl);
+}
 
 function searchApi(query) {
 
@@ -107,12 +110,8 @@ function searchApi(query) {
             // then the artist name will appear here.
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
             
-            var pastSearchParentEl = document.getElementById('past-search-buttons');
-            var pastSearchEl = document.createElement('div');
-            pastSearchEl.textContent = data.response.hits[0].result.primary_artist.name;
-            pastSearches.push(data.response.hits[0].result.primary_artist.name)
-            localStorage.setItem('pastSearches', pastSearches);
-            pastSearchParentEl.append(pastSearchEl);
+
+            saveSearch(data.response.hits[0].result.primary_artist.name)
 
             if (!data.response.hits.length) {
                 console.log('No results found!');

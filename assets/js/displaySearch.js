@@ -3,6 +3,7 @@ var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
 var gifArray = [];
 var urlArray = [];
+var pastSearches = [];
 
 function getParams() {
     // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
@@ -11,38 +12,43 @@ function getParams() {
     // Get the query and format values
     var query = searchParamsArr[0].split('=').pop();
     console.log(query)
+
+    searchApi(query);
     
-    var format = searchParamsArr[1].split('=').pop();
-    searchApi(query, format);
+}
+
+function saveSearch(query) {
     
+    localStorage.setItem('pastSearches', pastSearches);
+    console.log(pastSearches)
 }
 
 function searchGifApi(searchItem, num) {
     var apiKey = 'ICl9v7ZZJJN5ViF4ldRueAOfM2Q8vABA';
     var contentRating = 'g';
-    
+
     var requestUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchItem}&&limit=10&rating=${contentRating}`;
     fetch(requestUrl)
-    .then(response => { return response.json();})
-    .then(data => {
-        for (let i = 0; i < num; i++) {
-            gifArray.push(data.data[i].embed_url)
-            urlArray.push(data.data[i].url)
-            console.log(data.data[i])
-        }
-       
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-    
+        .then(response => { return response.json(); })
+        .then(data => {
+            for (let i = 0; i < num; i++) {
+                gifArray.push(data.data[i].embed_url)
+                urlArray.push(data.data[i].url)
+                console.log(data.data[i])
+            }
+
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+
 }
 
 
 
 
-function printResults(resultObj, gifObj, urlObj) {
-    
+function printResults(resultObj, gifObj) {
+
 
     // set up `<div>` to hold result content
     var resultCard = document.createElement('div');
@@ -54,20 +60,22 @@ function printResults(resultObj, gifObj, urlObj) {
 
     var titleEl = document.createElement('h3');
     titleEl.textContent = resultObj.full_title;
-    
-    
+
+
     var bodyContentEl = document.createElement('p');
     bodyContentEl.innerHTML =
         '<strong>URL:</strong> ' + resultObj.url + '<br/>';
 
     var gifEl = document.createElement('div');
-    gifEl.setAttribute('style', 'margin: 20px;')
+    gifEl.setAttribute('style', 'margin: 20px;');
     gifEl.innerHTML = `<iframe src="${gifObj}" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rise-records-eJ9u88bBUd1y9nQu4M">via GIPHY</a></p>`;
 
     var linkButtonEl = document.createElement('a');
     linkButtonEl.textContent = 'Click for Lyrics!';
     linkButtonEl.setAttribute('href', resultObj.url);
     linkButtonEl.classList.add('btn', 'btn-dark');
+
+    
 
     resultBody.append(titleEl, bodyContentEl, gifEl, linkButtonEl);
 
@@ -76,12 +84,12 @@ function printResults(resultObj, gifObj, urlObj) {
 
 
 
-function searchApi(query, format) {
+function searchApi(query) {
 
     var locQueryUrl = `https://genius.p.rapidapi.com/search?q=${query}`;
-    
-    searchGifApi(query, 10)
 
+    searchGifApi(query, 10);
+    
     fetch(locQueryUrl, {
         "method": "GET",
         "headers": {
@@ -99,22 +107,29 @@ function searchApi(query, format) {
             // then the artist name will appear here.
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
             
+            var pastSearchParentEl = document.getElementById('past-search-buttons');
+            var pastSearchEl = document.createElement('div');
+            pastSearchEl.textContent = data.response.hits[0].result.primary_artist.name;
+            pastSearches.push(data.response.hits[0].result.primary_artist.name)
+            localStorage.setItem('pastSearches', pastSearches);
+            pastSearchParentEl.append(pastSearchEl);
+
             if (!data.response.hits.length) {
                 console.log('No results found!');
                 resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
             } else {
                 resultContentEl.textContent = '';
                 for (var i = 0; i < data.response.hits.length; i++) {
-                    
-                    printResults(data.response.hits[i].result, gifArray[i], urlArray[i]);
+
+                    printResults(data.response.hits[i].result, gifArray[i]);
                 }
             }
         })
         .catch(function (error) {
             console.error(error);
         });
-        gifArray = [];
-        urlArray = [];  
+    gifArray = [];
+    urlArray = [];
 }
 
 function handleSearchFormSubmit(event) {
@@ -122,20 +137,21 @@ function handleSearchFormSubmit(event) {
 
 
     var searchInputVal = document.querySelector('#search-input').value;
-    var formatInputVal = document.querySelector('#format-input').value;
+
 
     if (!searchInputVal) {
         console.error('You need a search input value!');
         return;
     }
 
-    searchApi(searchInputVal, formatInputVal);
+    searchApi(searchInputVal);
 }
 
 
 
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+
 
 getParams();
 

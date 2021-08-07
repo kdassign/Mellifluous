@@ -65,7 +65,7 @@ function printResults(resultObj, gifObj, urlObj) {
     gifEl.innerHTML = `<iframe src="${gifObj}" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rise-records-eJ9u88bBUd1y9nQu4M">via GIPHY</a></p>`;
 
     var linkButtonEl = document.createElement('a');
-    linkButtonEl.textContent = 'Visit URL';
+    linkButtonEl.textContent = 'Click for Lyrics!';
     linkButtonEl.setAttribute('href', resultObj.url);
     linkButtonEl.classList.add('btn', 'btn-dark');
 

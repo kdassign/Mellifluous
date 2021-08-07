@@ -82,6 +82,7 @@ function saveSearch(query) {
     var pastSearchParentEl = document.getElementById('past-search-buttons');
     var pastSearchEl = document.createElement('div');
     pastSearchEl.textContent = query;
+    pastSearchEl.setAttribute('style', 'border: solid 1px; padding: 5px; margin: 5px;')
     pastSearches.push(query)
     localStorage.setItem('pastSearches', pastSearches);
     pastSearchParentEl.append(pastSearchEl);

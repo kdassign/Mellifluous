@@ -917,7 +917,7 @@
   
   /* BACKGROUND UTILS */
   .bg-primary {
-    background-color: black !important;
+    background-color:#000000 !important;
   }
   
   .bg-info {
@@ -1151,7 +1151,7 @@
     width: 100%;
     padding: 0.75rem;
     color: #1a1a1a;
-    background-color: #ffffff;
+    background-color:linear-gradient(#33ccff 0%, #ff99cc 100%);;
     margin: 0.625rem 0;
     font-size: 1.2rem;
     border: 1px solid #484848;

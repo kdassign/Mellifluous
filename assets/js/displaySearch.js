@@ -1,20 +1,48 @@
 var resultTextEl = document.querySelector('#result-text');
 var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
+var gifArray = [];
+var urlArray = [];
 
 function getParams() {
     // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
     var searchParamsArr = document.location.search.split('&');
-
+    console.log(searchParamsArr)
     // Get the query and format values
     var query = searchParamsArr[0].split('=').pop();
+    console.log(query)
+    
     var format = searchParamsArr[1].split('=').pop();
-
     searchApi(query, format);
+    
 }
 
-function printResults(resultObj) {
-    console.log(resultObj);
+function searchGifApi(searchItem, num) {
+    var apiKey = 'ICl9v7ZZJJN5ViF4ldRueAOfM2Q8vABA';
+    var contentRating = 'g';
+    
+    var requestUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchItem}&&limit=10&rating=${contentRating}`;
+    fetch(requestUrl)
+    .then(response => { return response.json();})
+    .then(data => {
+        for (let i = 0; i < num; i++) {
+            gifArray.push(data.data[i].embed_url)
+            urlArray.push(data.data[i].url)
+            console.log(data.data[i])
+        }
+       
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+    
+}
+
+
+
+
+function printResults(resultObj, gifObj, urlObj) {
+    
 
     // set up `<div>` to hold result content
     var resultCard = document.createElement('div');
@@ -26,17 +54,22 @@ function printResults(resultObj) {
 
     var titleEl = document.createElement('h3');
     titleEl.textContent = resultObj.full_title;
-
+    
+    
     var bodyContentEl = document.createElement('p');
     bodyContentEl.innerHTML =
         '<strong>URL:</strong> ' + resultObj.url + '<br/>';
 
+    var gifEl = document.createElement('div');
+    gifEl.setAttribute('style', 'margin: 20px;')
+    gifEl.innerHTML = `<iframe src="${gifObj}" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rise-records-eJ9u88bBUd1y9nQu4M">via GIPHY</a></p>`;
+
     var linkButtonEl = document.createElement('a');
-    linkButtonEl.textContent = 'Visit URL';
+    linkButtonEl.textContent = 'Click for Lyrics!';
     linkButtonEl.setAttribute('href', resultObj.url);
     linkButtonEl.classList.add('btn', 'btn-dark');
 
-    resultBody.append(titleEl, bodyContentEl, linkButtonEl);
+    resultBody.append(titleEl, bodyContentEl, gifEl, linkButtonEl);
 
     resultContentEl.append(resultCard);
 }
@@ -46,8 +79,8 @@ function printResults(resultObj) {
 function searchApi(query, format) {
 
     var locQueryUrl = `https://genius.p.rapidapi.com/search?q=${query}`;
-    console.log(format);
-
+    
+    searchGifApi(query, 10)
 
     fetch(locQueryUrl, {
         "method": "GET",
@@ -60,28 +93,33 @@ function searchApi(query, format) {
             return response.json();
         })
         .then(function (data) {
-            // write query to page so user knows what they are viewing
-            resultTextEl.textContent = query//data.response.hits[0].result.full_title
-
-            console.log(data.response);
-
+            // Write the most likely result for the song or artist that 
+            // the user is trying to search for. If a song is being searched for,
+            // the artist name appears here. If an artist is begin searched for,
+            // then the artist name will appear here.
+            resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
+            
             if (!data.response.hits.length) {
                 console.log('No results found!');
                 resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
             } else {
                 resultContentEl.textContent = '';
                 for (var i = 0; i < data.response.hits.length; i++) {
-                    printResults(data.response.hits[i].result);
+                    
+                    printResults(data.response.hits[i].result, gifArray[i], urlArray[i]);
                 }
             }
         })
         .catch(function (error) {
             console.error(error);
         });
+        gifArray = [];
+        urlArray = [];  
 }
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
+
 
     var searchInputVal = document.querySelector('#search-input').value;
     var formatInputVal = document.querySelector('#format-input').value;
@@ -94,6 +132,10 @@ function handleSearchFormSubmit(event) {
     searchApi(searchInputVal, formatInputVal);
 }
 
+
+
+
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 getParams();
+

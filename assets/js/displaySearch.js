@@ -58,10 +58,6 @@ function printResults(resultObj, gifObj) {
     titleEl.textContent = resultObj.full_title;
 
 
-    var bodyContentEl = document.createElement('p');
-    bodyContentEl.innerHTML =
-        '<strong>URL:</strong> ' + resultObj.url + '<br/>';
-
     var gifEl = document.createElement('div');
     gifEl.setAttribute('style', 'margin: 20px;');
     gifEl.innerHTML = `<iframe src="${gifObj}" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rise-records-eJ9u88bBUd1y9nQu4M">via GIPHY</a></p>`;
@@ -73,7 +69,7 @@ function printResults(resultObj, gifObj) {
 
     
 
-    resultBody.append(titleEl, bodyContentEl, gifEl, linkButtonEl);
+    resultBody.append(titleEl, gifEl, linkButtonEl);
 
     resultContentEl.append(resultCard);
 }

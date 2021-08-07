@@ -23,12 +23,12 @@
 }
 
 html {
-  background-color: #264653;
+  /* background-color: #264653; */
 }
 
 body {
     font-family: 'Fira Sans', sans-serif;
-    background-color: var(--charcoal);
+    /* background-color: var(--charcoal); */
   }
   
   h1,

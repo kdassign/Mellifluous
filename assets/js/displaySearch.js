@@ -77,7 +77,7 @@ function saveSearch(query) {
     pastSearchEl.textContent = query;
     pastSearchEl.setAttribute('style', 'border: solid 1px; padding: 5px; margin: 5px;');
     pastSearches.push(query);
-    localStorage.setItem('pastSearches', pastSearches);
+    localStorage.setItem('pastSearches', JSON.stringify(pastSearches));
     pastSearchParentEl.append(pastSearchEl);
 }
 
@@ -141,6 +141,7 @@ function handleSearchFormSubmit(event) {
     }
 
     searchApi(searchInputVal);
+    
 }
 
 
@@ -150,4 +151,5 @@ searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
 getParams();
+
 

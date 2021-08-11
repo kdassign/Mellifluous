@@ -44,10 +44,14 @@ function searchApi() {
           return response.json();
       })
       .then(function (data) {
-        console.log(data.response.song.song_art_image_url)
+        console.log(data.response.song.url);
         imageEl = document.createElement('img');
-        imageEl.setAttribute('src', data.response.song.song_art_image_url)
-        artworkEl.append(imageEl)
+        imageUrlEl = document.createElement('a');
+        imageEl.setAttribute('src', data.response.song.song_art_image_url);
+        imageUrlEl.setAttribute('href', data.response.song.url);
+        artworkEl.append(imageUrlEl);
+        imageUrlEl.append(imageEl);
+        
         
       })
       .catch(function (error) {

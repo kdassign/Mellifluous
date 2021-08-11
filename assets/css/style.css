@@ -1,5 +1,34 @@
+:root {
+  --charcoal: #264653;
+  --persianGreen: #2A9D8F;
+  --orangeYellowCrayola: #E9C46A;
+  --sandyBrown: #F4A261;
+  --burntSienna: #E76F51;
+}
+
+.charcoal {
+  color: var(--charcoal);
+}
+.green {
+  color: var(--persianGreen);
+}
+.crayola {
+  color: var(--orangeYellowCrayola);
+}
+.brown {
+  color: var(--sandyBrown);
+}
+.sienna {
+  color: var(--burntSienna);
+}
+
+html{
+  /* background-color: #264653; */
+}
+
 body {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    /* background-color: var(--charcoal); */
   }
   
   h1,
@@ -12,6 +41,7 @@ body {
     font-weight: 700;
   }
 
+
 .column {
   padding: 1rem;
   margin: 1em;
@@ -20,3 +50,4 @@ body {
 #title {
   text-align: center;
 }
+

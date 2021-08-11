@@ -60,7 +60,8 @@ function printResults(resultObj, gifObj) {
 
     var gifEl = document.createElement('div');
     gifEl.setAttribute('style', 'margin: 20px;');
-    gifEl.innerHTML = `<iframe src="${gifObj}" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rise-records-eJ9u88bBUd1y9nQu4M">via GIPHY</a></p>`;
+    gifEl.setAttribute('class', 'gif');
+    gifEl.innerHTML = `<iframe src="${gifObj}" allowFullScreen></iframe><p><a href="https://giphy.com">via GIPHY</a></p>`;
 
     var linkButtonEl = document.createElement('a');
     linkButtonEl.textContent = 'Click for Lyrics!';

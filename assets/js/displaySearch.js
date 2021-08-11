@@ -1,18 +1,19 @@
 var resultTextEl = document.querySelector('#result-text');
 var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
+var pastSearchButtonEl = document.querySelector('#past-search-buttons');
+
+var pastSearches = [];
 var gifArray = [];
 var urlArray = [];
-var pastSearches = [];
 
+// The getParams() function gets the users input from the index.html page.
+// The getParams() function serves as an init() function.
 function getParams() {
-    // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
+    // Get the search params out of the URL, namely the search query
     var searchParamsArr = document.location.search.split('&');
-    console.log(searchParamsArr)
-    // Get the query and format values
+    // Get the query and remove the 'q='
     var query = searchParamsArr[0].split('=').pop();
-    console.log(query)
-
     searchApi(query);
 }
 
@@ -28,7 +29,7 @@ function searchGifApi(searchItem, num) {
             for (let i = 0; i < num; i++) {
                 gifArray.push(data.data[i].embed_url)
                 urlArray.push(data.data[i].url)
-                console.log(data.data[i])
+                
             }
 
         })
@@ -70,16 +71,7 @@ function printResults(resultObj, gifObj) {
 
     resultContentEl.append(resultCard);
 }
-// stores search queries locally so you can see what you have searched for
-function saveSearch(query) {
-    var pastSearchParentEl = document.getElementById('past-search-buttons');
-    var pastSearchEl = document.createElement('div');
-    pastSearchEl.textContent = query;
-    pastSearchEl.setAttribute('style', 'border: solid 1px; padding: 5px; margin: 5px;');
-    pastSearches.push(query);
-    localStorage.setItem('pastSearches', JSON.stringify(pastSearches));
-    pastSearchParentEl.append(pastSearchEl);
-}
+
 
 // API request to genius for lyrics, song title, or artist
 function searchApi(query) {
@@ -107,7 +99,7 @@ function searchApi(query) {
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
             
             // if promise returns null, return nothing. if not, display results
-            saveSearch(data.response.hits[0].result.primary_artist.name)
+            pastSearch(data.response.hits[0].result.primary_artist.name)
 
             if (!data.response.hits.length) {
                 console.log('No results found!');
@@ -125,6 +117,7 @@ function searchApi(query) {
         });
     gifArray = [];
     urlArray = [];
+   
 }
 
 // submit event listener
@@ -144,12 +137,43 @@ function handleSearchFormSubmit(event) {
     
 }
 
+// This creates the past search elements on the page by creating a div
+// element and styling each element. The function then appends the div
+// the the parent element.
+function pastSearch(query) {
+    var pastSearchParentEl = document.getElementById('past-search-buttons');
+    var pastSearchEl = document.createElement('div');
+    pastSearchEl.textContent = query;
+    pastSearchEl.setAttribute('style', 'padding: 5px; margin: 5px;');
+    pastSearchEl.setAttribute('past-search', query);
+    pastSearchEl.setAttribute('type', 'submit');
+    pastSearches.push(query);
+    pastSearchParentEl.append(pastSearchEl);
+}
+
+// This is the handler that is passed to the event listener for
+// the past search elements. The user can click on a past search
+// and obtain the results.
+function pastSearchHandler(event) {
+    var query = event.target.getAttribute('past-search');
+    if (query) {
+        searchApi(query);
+    }
+}
+
+// stores search queries locally so you can see what you have searched for
+function saveSearch() {
+    localStorage.setItem('pastSearches', JSON.stringify())
+}
 
 
 // initiate on submit
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-
+pastSearchButtonEl.addEventListener('click', pastSearchHandler);
 
 getParams();
+
+
+
 
 

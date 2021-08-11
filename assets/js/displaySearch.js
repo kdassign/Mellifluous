@@ -14,11 +14,9 @@ function getParams() {
     console.log(query)
 
     searchApi(query);
-    
 }
 
-
-
+// request sent for giphy API with rapid API key generated. uses the same search parameters as the initial search bar
 function searchGifApi(searchItem, num) {
     var apiKey = 'ICl9v7ZZJJN5ViF4ldRueAOfM2Q8vABA';
     var contentRating = 'g';
@@ -40,9 +38,7 @@ function searchGifApi(searchItem, num) {
 
 }
 
-
-
-
+// creates divs to add content in card format based on search query
 function printResults(resultObj, gifObj) {
 
 
@@ -57,24 +53,24 @@ function printResults(resultObj, gifObj) {
     var titleEl = document.createElement('h3');
     titleEl.textContent = resultObj.full_title;
 
-
+    // div created for giphy .gif
     var gifEl = document.createElement('div');
     gifEl.setAttribute('style', 'margin: 20px;');
     gifEl.setAttribute('class', 'gif');
     gifEl.innerHTML = `<iframe src="${gifObj}" allowFullScreen></iframe><p><a href="https://giphy.com">via GIPHY</a></p>`;
 
+    // link to genius URL with lyrics for search query
     var linkButtonEl = document.createElement('a');
     linkButtonEl.textContent = 'Click for Lyrics!';
     linkButtonEl.setAttribute('href', resultObj.url);
     linkButtonEl.classList.add('btn', 'btn-dark');
 
-    
-
+    // append to current elements on page
     resultBody.append(titleEl, gifEl, linkButtonEl);
 
     resultContentEl.append(resultCard);
 }
-
+// stores search queries locally so you can see what you have searched for
 function saveSearch(query) {
     var pastSearchParentEl = document.getElementById('past-search-buttons');
     var pastSearchEl = document.createElement('div');
@@ -85,12 +81,13 @@ function saveSearch(query) {
     pastSearchParentEl.append(pastSearchEl);
 }
 
+// API request to genius for lyrics, song title, or artist
 function searchApi(query) {
 
     var locQueryUrl = `https://genius.p.rapidapi.com/search?q=${query}`;
 
     searchGifApi(query, 10);
-    
+    // fetch query for genius API with parameters
     fetch(locQueryUrl, {
         "method": "GET",
         "headers": {
@@ -98,6 +95,7 @@ function searchApi(query) {
             'x-rapidapi-host': 'genius.p.rapidapi.com'
         }
     })
+        // turn response into JSON
         .then(response => {
             return response.json();
         })
@@ -108,7 +106,7 @@ function searchApi(query) {
             // then the artist name will appear here.
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
             
-
+            // if promise returns null, return nothing. if not, display results
             saveSearch(data.response.hits[0].result.primary_artist.name)
 
             if (!data.response.hits.length) {
@@ -129,6 +127,7 @@ function searchApi(query) {
     urlArray = [];
 }
 
+// submit event listener
 function handleSearchFormSubmit(event) {
     event.preventDefault();
 
@@ -147,7 +146,7 @@ function handleSearchFormSubmit(event) {
 
 
 
-
+// initiate on submit
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 

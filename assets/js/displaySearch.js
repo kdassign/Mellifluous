@@ -81,12 +81,13 @@ function saveSearch(query) {
     pastSearchParentEl.append(pastSearchEl);
 }
 
+// API request to genius for lyrics, song title, or artist
 function searchApi(query) {
 
     var locQueryUrl = `https://genius.p.rapidapi.com/search?q=${query}`;
 
     searchGifApi(query, 10);
-    
+    // fetch query for genius API with parameters
     fetch(locQueryUrl, {
         "method": "GET",
         "headers": {
@@ -94,6 +95,7 @@ function searchApi(query) {
             'x-rapidapi-host': 'genius.p.rapidapi.com'
         }
     })
+        // turn response into JSON
         .then(response => {
             return response.json();
         })
@@ -104,7 +106,7 @@ function searchApi(query) {
             // then the artist name will appear here.
             resultTextEl.textContent = data.response.hits[0].result.primary_artist.name;
             
-
+            // if promise returns null, return nothing. if not, display results
             saveSearch(data.response.hits[0].result.primary_artist.name)
 
             if (!data.response.hits.length) {
@@ -125,6 +127,7 @@ function searchApi(query) {
     urlArray = [];
 }
 
+// submit event listener
 function handleSearchFormSubmit(event) {
     event.preventDefault();
 
@@ -142,7 +145,7 @@ function handleSearchFormSubmit(event) {
 
 
 
-
+// initiate on submit
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 

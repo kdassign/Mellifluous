@@ -22,12 +22,12 @@
   color: var(--burntSienna);
 }
 
-html {
+html{
   /* background-color: #264653; */
 }
 
 body {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Carrois Gothic SC', sans-serif;
     /* background-color: var(--charcoal); */
   }
   
@@ -50,5 +50,4 @@ body {
 #title {
   text-align: center;
 }
-
 

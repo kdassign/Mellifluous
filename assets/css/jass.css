@@ -89,3 +89,7 @@ body {
   color: #fff;
   opacity:95%;
 }
+
+.past-search:hover {
+  cursor: pointer;
+}

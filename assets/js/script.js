@@ -44,11 +44,14 @@ function searchApi() {
           return response.json();
       })
       .then(function (data) {
-        console.log(data.response.song.url);
         imageEl = document.createElement('img');
         imageUrlEl = document.createElement('a');
+        songTitleEl = document.createElement('h1');
+        songTitleEl.setAttribute('style', 'font-size: 30px;')
+        songTitleEl.textContent = data.response.song.full_title
         imageEl.setAttribute('src', data.response.song.song_art_image_url);
         imageUrlEl.setAttribute('href', data.response.song.url);
+        artworkEl.append(songTitleEl)
         artworkEl.append(imageUrlEl);
         imageUrlEl.append(imageEl);
         

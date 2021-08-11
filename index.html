@@ -16,9 +16,15 @@
 
   <!-- Similar Jumbotron Styling displaying the name of the website -->
   <section class="hero is-success is-primary">
-    <div class="hero-body">
+    <div class="hero-body" style="display: flex; flex-flow: row wrap; align-items: center;">
       <p class="title">MELLIFLUOUS</p>
+
       <p class="subtitle">Let your musical quest begin!</p>
+      </br>
+      <figure class="image">
+        <img src="./assets/transparent-musical.png" class="center"
+          style="height: auto; width: auto; text-align: right;">
+      </figure>
     </div>
 
 
@@ -31,6 +37,7 @@
         <h1>Mellifluous</h1>
       </div>
       <!-- Form created to make a search bar to insert either artists, song title, or lyrics to retrieve those results-->
+
       <form id="search-form" class="form">
         <div class="block">
           <input id="search-input" class="input is-large" type="text"
@@ -39,13 +46,12 @@
         <div id="format-input"></div>
         <!-- Submit button created to be able to get search results -->
         <button id="submit" class="button is-success is-large">Submit</button>
-        <figure class="image">
-          <img src="./assets/transparent-musical.png" class="center" height="150" width="200">
-        </figure>
+
+        <div class="album-artwork" id="artwork-box" style="text-align: center; padding: 10px;"></div>
       </form>
     </div>
   </div>
-  <div class="album-artwork"></div>
+
   <div class="lyrics" id="lyrics-box"> </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src='./assets/js/script.js'></script>

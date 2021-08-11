@@ -21,10 +21,12 @@ body {
   font-family: 'Carrois Gothic SC', sans-serif;
   color: #1a1a1a;
 }
-
+/*Creates gradient effect of the jumbotron/header*/
 .hero {
   background: linear-gradient(120DEG,#264653,#2A9D8f,#E76F51,#F4A261,#E9C46A,#ffffff);
 }
+
+/*Changes font for listed elements*/
 .title,
 .subtitle,
 .green,
@@ -49,6 +51,10 @@ body {
   font-size: 15px;
   text-align: center;
 }
+
+/*Positioning was mostly done through HTML*/
+/*Opacity is set lower to create a slightly transparent look*/
+/*Transitioning helps opacity changes flow smoothly*/
 .box {
   display: inline-block;
   opacity: 80%;
@@ -61,11 +67,14 @@ body {
   padding:20px;
   width: 40%;
 }
+
+/*Hovering over element increases opacity so that the element is more visible plus it looks kind of cool*/
 .box:hover {
   transition: 1 sec;
   opacity: 100%
 }
 
+/*Positions gif so that it everything is aligned*/
 .gif {
   backface-visibility: hidden; 
   max-width: 90%;

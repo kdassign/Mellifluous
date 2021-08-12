@@ -89,7 +89,7 @@ let currentLoopIndex = 0;
 
 function step() {
     frameCount++;
-    if (frameCount < 15) {
+    if (frameCount < 80) {
         window.requestAnimationFrame(step);
         return;
     }

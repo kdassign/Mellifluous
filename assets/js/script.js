@@ -68,7 +68,7 @@ function searchApi() {
 
 searchApi()
 
-
+// Everything below handles the musical staff animation.
 let img = new Image();
 img.src = './assets/animated-staff-transparent.png';
 img.onload = function () {
@@ -105,8 +105,4 @@ function step() {
 
 function init() {
     window.requestAnimationFrame(step);
-    // ctx.drawImage(img, 0, 0, 49, 49, 0, 0, 800, 600)
-    // ctx.drawImage(img, 51, 0, 100, 49, 0, 0, 1600, 600)
-    // ctx.drawImage(img, 0, 51, 49, 100, 0, 0, 800, 1200)
-    // ctx.drawImage(img, 51, 51, 100, 100, 0, 0, 1600, 1200)
 }

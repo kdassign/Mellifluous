@@ -14,6 +14,7 @@ https://eigenvalue000.github.io/project-01/
 ## Screenshots
 
 ![mellifluous demo](./assets/demo.png)
+![](https://i.ibb.co/n0stWTg/melli.png)
 
 ## Tech/Framework
 Built with:
